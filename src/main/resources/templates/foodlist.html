@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<!--  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />-->
+    <title>Catfood Cabinet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+	
+	<h1>Catfoods</h1>
+	<table class="table table-striped">
+		<tr>
+			<th>Name</th>
+			<th>Amount left</th>
+			<th>Cat</th>
+			<th>Food kind</th>
+		</tr>
+		<tr th:each = "food : ${foods}">
+			<td th:text = "${food.name}"></td>
+			<td th:text = "${food.amount}"></td>
+			<td th:text = "${food.cat.name}"></td>
+			<td th:text ="${food.kind.kindname}"></td>
+			<td><a th:href="@{/delete/{id}(id=${food.id})}" class="btn btn-danger">Delete</a></td>
+			<td><a th:href="@{/edit/{id}(id=${food.id})}" class="btn btn-danger">Edit</a></td>		
+		</tr>
+	</table>
+	<a href="/add" class="btn btn-success">Add some food</a>
+</div>
+</body>
+</html>

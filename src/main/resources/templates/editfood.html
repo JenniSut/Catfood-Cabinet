@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<!--  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />-->
+    <title>Catfood Cabinet</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+	
+	<h1>Edit this food</h1>
+	<form th:object="${food}" th:action="@{../save}" action="#" method="post">
+		<input type="hidden" th:field="*{id}" class="form-control" /> 
+			<label for="name">Name and flavour</label> 
+			<input type="text" id="name" th:field="*{name}" class="form-control" placeholder="name" /> 
+			<label for="amount">Amount</label> 
+			<input type="text" id="amount" th:field="*{amount}" class="form-control" placeholder="amount" /> 
+			<label for="catlist">Cat</label>
+			<select id="catlist" th:field="*{cat.catid}" class="form-control">
+				<option th:each="cat: ${cats}" th:value="${cat.catid}" th:text="${cat.name}"></option>
+			</select>
+			<select id="kindlist" th:field="*{kind.kindid}" class="form-control">
+				<option th:each="kind: ${kinds}" th:value="${kind.kindid}" th:text="${kind.kindname}"></option>
+			</select>
+			
+			<br/>
+			<input type="submit" class="btn btn-success" value="Save"></input>
+	</form>
+</div>
+</body>
+</html>
