@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<!--  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />-->
     <title>Catfood Cabinet</title>
@@ -12,23 +12,29 @@
 	<div class="container">
 	
 	<h1>Add a new food</h1>
-	<form th:object="${food}" th:action="@{save}" action="#" method="post">
+	<form th:object="${food}" th:action="@{save}" action="#" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="name">Name and flavour</label> 
 				<input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Name"/> 
-				<label for="Amount">Amount</label> <input type="text" id="amount" th:field="*{amount}" class="form-control" placeholder="amount"/> 
+				<label for="Amount">Amount</label> 
+				<input type="text" id="amount" th:field="*{amount}" class="form-control" placeholder="amount"/> 
+				<label for="url">Url for ordering</label>
+				<input type="text" id="url" th:field="*{url}" class="form-control" placeholder="url"/>
 				<label for="catlist">Cat</label>
 				<select id="catlist" th:field="*{cat}" class="form-control">
 					<option th:each="cat: ${cats}"
 							th:value="${cat.catid}"
 							th:text="${cat.name}"></option>
 				</select>
+				<label for="kindlist">Kind</label>
 				<select id="kindlist" th:field="*{kind}" class="form-control">
 					<option th:each="kind: ${kinds}"
 							th:value="${kind.kindid}"
 							th:text="${kind.kindname}"></option>
 				</select>
 				<br>
+				<label>Photos: </label>
+    			<input type="file" name="image" accept="image/png, image/jpeg" />
 				
 				<input type="submit" value="Save" class="btn btn-primary"></input>
 			</div>

@@ -1,0 +1,46 @@
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS cat; 
+DROP TABLE IF EXISTS kind; 
+DROP TABLE IF EXISTS food; 
+DROP TABLE IF EXISTS user;
+SET FOREIGN_KEY_CHECKS=1;
+
+CREATE TABLE cat(
+catid BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR(50) NOT NULL,
+PRIMARY KEY (catid)
+);
+
+CREATE TABLE kind(
+kindid BIGINT NOT NULL AUTO_INCREMENT,
+kindname VARCHAR(150) NOT NULL,
+PRIMARY KEY (kindid)
+);
+
+
+CREATE TABLE food (
+id BIGINT NOT NULL AUTO_INCREMENT, 
+name VARCHAR(150) NOT NULL, 
+url VARCHAR(300) NOT NULL, 
+amount INT, 
+photos VARCHAR(150), 
+PRIMARY KEY (id), 
+FOREIGN KEY (catid) REFERENCES cat(catid), 
+FOREIGN KEY (kindid) REFERENCES kind(kindid)
+);
+
+
+CREATE TABLE user(
+id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(250) NOT NULL,
+password VARCHAR(250) NOT NULL,
+role VARCHAR(20) NOT NULL
+);
+
+INSERT INTO cat (name) VALUES ('Tootsie'), ('Coco');
+
+INSERT INTO kind (kindname) VALUES ('Wet food'), ('Dry food');
+
+INSERT INTO user (username, password, role) 
+VALUES ("user", "$2a$10$1DTvwpXVBArGFixHBuzVJObjTuXhIOkx5pse6KsYs8/C2ckxnGEou", "USER"), 
+("admin", "$2a$10$cDZgyF4xaPMmmoRW3OVcmuf.8o2YSx8.M7CeRKqi.1PVw.t3E8uEC", "ADMIN");

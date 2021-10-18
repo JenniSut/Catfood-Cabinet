@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import fi.harkka.catfood.domain.Cat;
 import fi.harkka.catfood.domain.Kind;
@@ -15,6 +17,8 @@ import fi.harkka.catfood.domain.CatRepository;
 import fi.harkka.catfood.domain.FoodRepository;
 import fi.harkka.catfood.domain.KindRepository;
 
+//uses Springboots testing support
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RepositoryTest {
 

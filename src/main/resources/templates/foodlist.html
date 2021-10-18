@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<!--  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />-->
     <title>Catfood Cabinet</title>
@@ -10,25 +10,36 @@
 </head>
 <body>
 	<div class="container">
+	<div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
 	
 	<h1>Catfoods</h1>
+	<h3 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h3>
 	<table class="table table-striped">
 		<tr>
+			<th></th>
 			<th>Name</th>
 			<th>Amount left</th>
 			<th>Cat</th>
 			<th>Food kind</th>
+			<th>Order more</th>
 		</tr>
 		<tr th:each = "food : ${foods}">
+			<td><img th:src="@{${food.photosImagePath}}" height="70" width= "auto" alt="picture of packaging"/></td>
 			<td th:text = "${food.name}"></td>
 			<td th:text = "${food.amount}"></td>
 			<td th:text = "${food.cat.name}"></td>
 			<td th:text ="${food.kind.kindname}"></td>
-			<td><a th:href="@{/delete/{id}(id=${food.id})}" class="btn btn-danger">Delete</a></td>
+			<td><a th:href="@{${food.url}}" class= "btn" th:target="_blank">Order here</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${food.id})}" class="btn btn-danger">Delete</a></td>
 			<td><a th:href="@{/edit/{id}(id=${food.id})}" class="btn btn-danger">Edit</a></td>		
 		</tr>
 	</table>
 	<a href="/add" class="btn btn-success">Add some food</a>
+	
 </div>
 </body>
 </html>

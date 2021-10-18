@@ -1,5 +1,6 @@
 package fi.harkka.catfood.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,8 +12,16 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.annotation.Transient;
+
 @Entity
 public class Food {
+	@Transient
+    public String getPhotosImagePath() {
+        if (photos == null || id == null) return null;
+         
+        return "/food-photos/" + id + "/" + photos;
+    }
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +29,11 @@ public class Food {
 	@Size(min=2, max=120)
 	@NotNull
 	private String name;
+	private String url;
 	int amount;
+	
+	
+	private String photos;
 	
 	@ManyToOne
 	@JoinColumn(name="catid")
@@ -33,6 +46,50 @@ public class Food {
 	public Food() {}
 	
 	
+	
+	
+	public Food(@Size(min = 2, max = 120) @NotNull String name, @Size(min = 2, max = 120) @NotNull String url,
+			int amount, Cat cat, Kind kind, String photos) {
+		super();
+		this.name = name;
+		this.url = url;
+		this.amount = amount;
+		this.cat = cat;
+		this.kind = kind;
+		this.photos = photos;
+	}
+
+
+	
+
+	public String getPhotos() {
+		return photos;
+	}
+
+
+
+
+	public void setPhotos(String photos) {
+		this.photos = photos;
+	}
+
+
+
+
+	public String getUrl() {
+		return url;
+	}
+
+
+
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+
+
+
 	public Kind getKind() {
 		return kind;
 	}
@@ -43,13 +100,14 @@ public class Food {
 	}
 
 
-	public Food(Long id, @Size(min = 2, max = 120) @NotNull String name, int amount, Cat cat, Kind kind) {
+	public Food(Long id, @Size(min = 2, max = 120) @NotNull String name, int amount, Cat cat, Kind kind, String photos) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
 		this.cat = cat;
 		this.kind = kind;
+		this.photos = photos;
 	}
 
 
@@ -127,7 +185,8 @@ public class Food {
 
 	@Override
 	public String toString() {
-		return "Food [id=" + id + ", name=" + name + ", amount=" + amount + ", cat=" + cat + ", kind=" + kind + "]";
+		return "Food [id=" + id + ", name=" + name + ", url=" + url + ", amount=" + amount + ", photos=" + photos
+				+ ", cat=" + cat + ", kind=" + kind + "]";
 	}
 	
 	

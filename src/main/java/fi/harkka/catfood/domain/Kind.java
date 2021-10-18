@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Kind {
 
@@ -17,6 +19,7 @@ public class Kind {
 	private Long kindid;
 	String kindname;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kind")
 	private List<Food> foods;
 	
