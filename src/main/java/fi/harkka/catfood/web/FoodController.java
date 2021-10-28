@@ -86,14 +86,13 @@ public class FoodController {
 	@GetMapping ("/delete/{id}")
 	//Method-level authorization
 	@PreAuthorize ("hasAuthority('ADMIN')")
-	public String deleteBook(@PathVariable("id") Long id, Model model) {
+	public String deleteFood(@PathVariable("id") Long id, Model model) {
 		frepository.deleteById(id);
 		return "redirect:../index";
 		}
 	
 	@RequestMapping(value = "/edit/{id}")
-	@PreAuthorize ("hasAuthority('ADMIN')")
-	public String addBook(@PathVariable("id") long id, Model model) {
+	public String addFood(@PathVariable("id") long id, Model model) {
 		model.addAttribute("food", frepository.findById(id));
 		model.addAttribute("cats", crepository.findAll());
 		model.addAttribute("kinds", krepository.findAll());

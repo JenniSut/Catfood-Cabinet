@@ -23,7 +23,7 @@
 			<input sec:authorize="hasAuthority('ADMIN')" type="text" id="url" th:field="*{url}" class="form-control" placeholder="url"/>
 			<input sec:authorize="hasAuthority('USER')" type="text" id="url" th:field="*{url}" class="form-control" placeholder="url" readonly/>
 			<label for="catlist">Cat</label>
-			<select id="catlist" th:field="*{cat.catid}" class="form-control">
+			<select inputype="hidden" id="catlist" th:field="*{cat.catid}" class="form-control">
 				<option th:each="cat: ${cats}" th:value="${cat.catid}" th:text="${cat.name}"></option>
 			</select>
 			<label for="kindlist">Kind</label>
