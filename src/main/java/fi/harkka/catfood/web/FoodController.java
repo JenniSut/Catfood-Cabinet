@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import javax.validation.Valid;
 
-import fi.harkka.catfood.domain.FileUploadUtil;
+import fi.harkka.catfood.FileUploadUtil;
 import fi.harkka.catfood.domain.CatRepository;
 import fi.harkka.catfood.domain.Food;
 import fi.harkka.catfood.domain.FoodRepository;
@@ -58,17 +58,17 @@ public class FoodController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("cats", crepository.findAll());
 			model.addAttribute("kinds", krepository.findAll());
-			return "addfood";
-		}
-		
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		food.setPhotos(fileName);
-		frepository.save(food);
-		
-		String uploadDir = "food-photos/" + food.getId();
-		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		
-		return("redirect:index");
+			
+			return "redirect:index";
+		}else {
+			
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			food.setPhotos(fileName);
+			frepository.save(food);
+			
+			String uploadDir = "food-photos/" + food.getId();
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		return("redirect:index");}
 		
 	}
 	
@@ -77,7 +77,7 @@ public class FoodController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("cats", crepository.findAll());
 			model.addAttribute("kinds", krepository.findAll());
-			return "addfood";
+			return "redirect:index";
 		}
 		frepository.save(food);
 		return("redirect:index");
@@ -99,4 +99,5 @@ public class FoodController {
 		return "editfood";
 	}
 	
-}
+};
+

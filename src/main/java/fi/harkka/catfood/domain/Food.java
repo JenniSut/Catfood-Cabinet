@@ -16,6 +16,7 @@ import org.springframework.data.annotation.Transient;
 
 @Entity
 public class Food {
+	//does not exist in the database will be marked as transient
 	@Transient
     public String getPhotosImagePath() {
         if (photos == null || id == null) return null;

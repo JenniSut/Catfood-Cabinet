@@ -1,4 +1,4 @@
-package fi.harkka.catfood.domain;
+package fi.harkka.catfood;
 
 import java.io.*;
 import java.nio.file.*;
